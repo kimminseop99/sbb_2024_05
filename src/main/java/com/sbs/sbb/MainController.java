@@ -11,6 +11,6 @@ public class MainController {
     @GetMapping("/sbb")
     @ResponseBody
     public String index() {
-        return "index";
+        return "안녕하세요";
     }
 }
