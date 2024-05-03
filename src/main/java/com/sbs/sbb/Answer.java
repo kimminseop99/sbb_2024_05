@@ -20,6 +20,8 @@ public class Answer {
     private LocalDateTime createDate;
 
     // private Integer questionId
+    // Many = Answer, One = Question
+    // 필수
     @ManyToOne // table의 관계에서 반드시 작성해주어야함
     private Question question;
 }
