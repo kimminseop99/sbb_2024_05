@@ -7,12 +7,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
+@RequestMapping("/question")
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/question")
 public class QuestionController {
-
     private final QuestionService questionService;
 
     @GetMapping("/list")
@@ -27,22 +25,37 @@ public class QuestionController {
     public String detail(Model model, @PathVariable("id") Integer id) {
         Question q = this.questionService.getQuestion(id);
 
-
         model.addAttribute("question", q);
-
 
         return "question_detail";
     }
 
     @GetMapping("/create")
-    public String questionCreate() {
+    public String create() {
         return "question_form";
     }
 
     @PostMapping("/create")
     public String questionCreate(@RequestParam(value="subject") String subject, @RequestParam(value="content") String content) {
-        this.questionService.create(subject, content);
+
+        if ( subject == null || subject.trim().length() == 0 ) {
+            throw new RuntimeException("subject(을)를 입력해주세요.");
+        }
+
+        if ( subject.trim().length() > 200 ) {
+            throw new RuntimeException("subject(을)를 200자 이하로 입력해주세요.");
+        }
+
+        if ( content == null || content.trim().length() == 0 ) {
+            throw new RuntimeException("content(을)를 입력해주세요.");
+        }
+
+        if ( content.trim().length() > 20_000 ) {
+            throw new RuntimeException("content(을)를 20,000자 이하로 입력해주세요.");
+        }
+
+        Question q = this.questionService.create(subject, content);
+
         return "redirect:/question/list";
     }
-
 }
