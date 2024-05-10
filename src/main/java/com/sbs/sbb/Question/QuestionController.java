@@ -36,23 +36,10 @@ public class QuestionController {
     }
 
     @PostMapping("/create")
-    public String questionCreate(@RequestParam(value="subject") String subject, @RequestParam(value="content") String content) {
+    public String questionCreate(QuestionForm questionForm) {
 
-        if ( subject == null || subject.trim().length() == 0 ) {
-            throw new RuntimeException("subject(을)를 입력해주세요.");
-        }
-
-        if ( subject.trim().length() > 200 ) {
-            throw new RuntimeException("subject(을)를 200자 이하로 입력해주세요.");
-        }
-
-        if ( content == null || content.trim().length() == 0 ) {
-            throw new RuntimeException("content(을)를 입력해주세요.");
-        }
-
-        if ( content.trim().length() > 20_000 ) {
-            throw new RuntimeException("content(을)를 20,000자 이하로 입력해주세요.");
-        }
+        String subject = questionForm.getSubject();
+        String content = questionForm.getContent();
 
         Question q = this.questionService.create(subject, content);
 
