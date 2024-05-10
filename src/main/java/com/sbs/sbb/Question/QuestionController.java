@@ -1,5 +1,6 @@
 package com.sbs.sbb.Question;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,12 +37,10 @@ public class QuestionController {
     }
 
     @PostMapping("/create")
-    public String questionCreate(QuestionForm questionForm) {
+    // QuestionForm 값을 바인딩 할 떼 유효성 검사
+    public String questionCreate(@Valid QuestionForm questionForm) {
 
-        String subject = questionForm.getSubject();
-        String content = questionForm.getContent();
-
-        Question q = this.questionService.create(subject, content);
+        Question q = this.questionService.create(questionForm.getSubject(), questionForm.getContent());
 
         return "redirect:/question/list";
     }
