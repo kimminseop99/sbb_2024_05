@@ -18,5 +18,7 @@ public interface QuestionRepository extends JpaRepository<Question, Integer> {
     @Transactional
     @Modifying
     @Query(value="ALTER TABLE question AUTO_INCREMENT = 1", nativeQuery = true)
-    void createAutoIncrement();
+    void clearAutoIncrement();
+
+
 }

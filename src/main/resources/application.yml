@@ -7,9 +7,13 @@ spring:
     username: root
     password:
   jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
+      hibernate:
+        ddl-auto: update
+      properties:
+        hibernate:
+          show-sql: true
+          format_sql: true
+          default_batch_fetch_size: 1000
 logging:
   level:
     org.hibernate.orm.jdbc.bind: TRACE
