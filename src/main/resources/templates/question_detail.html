@@ -12,6 +12,12 @@
                         <span th:if="${question.author != null}" th:text="${question.author.username}"></span>
                     </div>
                     <div th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></div>
+                    <div class="my-3">
+                        <a th:href="@{|/question/modify/${question.id}|}" class="btn btn-sm btn-outline-secondary"
+                           sec:authorize="isAuthenticated()"
+                           th:if="${question.author != null and #authentication.getPrincipal().getUsername() == question.author.username}"
+                           th:text="수정"></a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -41,11 +47,9 @@
     <form th:action="@{|/answer/create/${question.id}|}" th:object="${answerForm}" method="post" class="my-3">
         <div th:replace="~{form_errors :: formErrorsFragment}"></div>
 
-        <!-- sec:authorize="isAuthenticated()" - 로그인 했을 시에만 보임 -->
         <textarea sec:authorize="isAnonymous()" disabled placeholder="로그인 후 이용해주세요." th:field="*{content}" rows="3" class="form-control"></textarea>
         <textarea sec:authorize="isAuthenticated()" required maxlength="20000" placeholder="내용(20,000자 이하)" th:field="*{content}" rows="7" class="form-control"></textarea>
         <input sec:authorize="isAuthenticated()" type="submit" value="답변등록" class="btn btn-primary my-2">
-
     </form>
 </div>
 </html>
