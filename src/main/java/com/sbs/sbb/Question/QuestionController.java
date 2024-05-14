@@ -39,7 +39,7 @@ public class QuestionController {
         return "question_detail";
     }
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("isAuthenticated()") // 로그인 했을 시에만 허용
     @GetMapping("/create")
     // QuestionFrom 변수는 model.addAttribute 없이 바로 뷰에서 접근할 수 있다.
     // QuestionFrom questionForm 써주는 이유 : question_form.html에서  questionForm 변수가 없으면 실행이 안되기 때문에
@@ -51,7 +51,7 @@ public class QuestionController {
         return "question_form";
     }
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("isAuthenticated()") // 로그인 했을 시에만 허용
     @PostMapping("/create")
     // QuestionForm 값을 바인딩 할 때 유효성 체크를 해라!
     // QuestionFrom 변수는 model.addAttribute 없이 바로 뷰에서 접근할 수 있다.

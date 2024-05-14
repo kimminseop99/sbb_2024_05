@@ -24,7 +24,7 @@ public class AnswerController {
     private final AnswerService answerService;
     private final UserService userService;
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("isAuthenticated()") // 로그인 했을 시에만 허용
     @PostMapping("/create/{id}")
     public String createAnswer(
             Model model,
