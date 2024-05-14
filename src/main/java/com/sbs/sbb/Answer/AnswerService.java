@@ -37,10 +37,10 @@ public class AnswerService {
     public void modify(Answer answer, String content) {
         answer.setContent(content);
         answer.setModifyDate(LocalDateTime.now());
-        this.answerRepository.save(answer);
+        answerRepository.save(answer);
     }
 
     public void delete(Answer answer) {
-        this.answerRepository.delete(answer);
+        answerRepository.delete(answer);
     }
 }
