@@ -14,23 +14,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Service
 @RequiredArgsConstructor
+@Service
 public class QuestionService {
     private final QuestionRepository questionRepository;
 
-
     public List<Question> getList() {
-        return questionRepository.findAll();
+        return this.questionRepository.findAll();
     }
 
     public Question getQuestion(Integer id) {
         Optional<Question> oq = this.questionRepository.findById(id);
 
-        if(!oq.isPresent()){
-            throw new DataNotFoundException("question not found");
-        }
-
+        // oq.isPersent() == false
+        // !oq.isPresent()
+        // oq.isEmpty()
+        if ( oq.isEmpty() ) throw new DataNotFoundException("question not found");
 
         return oq.get();
     }
@@ -39,8 +38,9 @@ public class QuestionService {
         Question q = new Question();
         q.setSubject(subject);
         q.setContent(content);
-        q.setCreateDate(LocalDateTime.now());
         q.setAuthor(user);
+        q.setCreateDate(LocalDateTime.now());
+
         this.questionRepository.save(q);
         return q;
     }
@@ -57,7 +57,10 @@ public class QuestionService {
         question.setSubject(subject);
         question.setContent(content);
         question.setModifyDate(LocalDateTime.now());
-        this.questionRepository.save(question);
+        questionRepository.save(question);
     }
 
+    public void delete(Question question) {
+        questionRepository.delete(question);
+    }
 }
