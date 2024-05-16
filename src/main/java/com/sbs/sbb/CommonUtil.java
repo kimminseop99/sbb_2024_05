@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 //컴포넌트 이름 : commonUtil
-//이 컴포넌트
+//이 컴포넌트 이 컴포넌트를 타임리프에서 접근 할 때 @commonUtil
 public class CommonUtil {
     public String markdown(String markdown) {
         Parser parser = Parser.builder().build();
